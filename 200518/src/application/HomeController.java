@@ -11,15 +11,25 @@ import Webpage.WebController;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.geometry.Rectangle2D;
+import javafx.scene.Group;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.PerspectiveCamera;
 import javafx.scene.Scene;
+import javafx.scene.SceneAntialiasing;
+import javafx.scene.SnapshotParameters;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.ScrollPane.ScrollBarPolicy;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Box;
+import javafx.scene.transform.Rotate;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 
@@ -32,11 +42,30 @@ public class HomeController implements Initializable {
 	@FXML TextField userStateTxt;
 	@FXML Button loginBtn;
 	@FXML BorderPane mainPane;
+	@FXML Label userTextLabel;
+	@FXML Box homeBox;
+	@FXML Box shopBox;
+	@FXML Box boardBox;
+	@FXML Box membershipBox;
+	@FXML Box loginBox;
+	@FXML Box searchBox;
+	@FXML StackPane homePane;
+	@FXML StackPane shopPane;
+	@FXML StackPane boardPane;
+	@FXML StackPane membershipPane;
+	@FXML StackPane loginPane;
+	@FXML StackPane searchPane;
+	
+	
 	static private ScrollPane scrPane;
 	static private Scene scene;
 	static Popup mainPopup;
 	static private Parent root;
 	static Node mainPopupNode;
+	static double mousePosX;
+	static double mousePosY;
+	static double mouseOldX;
+	static double mouseOldY;
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		mainPopup = new Popup();
@@ -49,9 +78,28 @@ public class HomeController implements Initializable {
 			loginBtn.setText("LOGOUT");
 		}
 		mainPopupNode = comserv.Load("../application/PopUp.fxml");
+		userTextLabel.setVisible(true);
+		userTextLabel.setText(userState);
 		System.out.println("init완료");
+		homeBox.setOnMouseClicked(e->{
+			HomeView();
+		});
+		shopBox.setOnMouseClicked(e->{
+			ShopView();
+		});
+		boardBox.setOnMouseClicked(e->{
+			BoardView();
+		});
+		membershipBox.setOnMouseClicked(e->{
+			MembershipView();
+		});
+		loginBox.setOnMouseClicked(e->{
+			LoginView();
+		});
+		searchBox.setOnMouseClicked(e->{
+			SearchView();
+		});
 	}
-	
 	public void setRoot(Parent root) {
 
 		this.root = root;
@@ -77,16 +125,62 @@ public class HomeController implements Initializable {
 		}
 		mainPopup = comserv.showPopUp(scene,"팝업창1",mainPopupNode, "");
 	}
+	
+	public static Box BoxScene(StackPane panescene, Box box) {
+/*	    PerspectiveCamera camera = new PerspectiveCamera(true);
+	    camera.setNearClip(0.1);
+	    camera.setFarClip(1000000000.0);
+	    camera.setTranslateZ(-1000);
+	    scene.setCamera(camera);*/
+	    SnapshotParameters sp = new SnapshotParameters();
+	    Rotate rotateX = new Rotate(10, 0, 0, 0, Rotate.X_AXIS);
+	    Rotate rotateY = new Rotate(5, 0, 0, 0, Rotate.Y_AXIS);
+	    box.getTransforms().addAll(rotateX, rotateY);
+
+	    panescene.setOnMousePressed(me -> {
+	        mouseOldX = me.getSceneX();
+	        mouseOldY = me.getSceneY();
+	    });
+	    panescene.setOnMouseDragged(me -> {
+	        mousePosX = me.getSceneX();
+	        mousePosY = me.getSceneY();
+	        rotateX.setAngle(rotateX.getAngle() + (mousePosY - mouseOldY));
+	        rotateY.setAngle(rotateY.getAngle() - (mousePosX - mouseOldX));
+	        mouseOldX = mousePosX;
+	        mouseOldY = mousePosY;
+	    });
+	   // sp.setViewport(new Rectangle2D(0, 0, 600, 700));
+
+	    return box;
+	}
 	public void HomeView() {
 		
 		//BorderPane borderPane = (BorderPane)comserv.getScene(e);
 		BorderPane borderPane = (BorderPane)this.root;
-		borderPane.setLeft(null);
-		borderPane.setCenter(null);
-
-		//Parent root = (Parent)e.getSource();
-		//scene = root.getScene();
-		
+		borderPane.setCenter(((BorderPane)comserv.Load("../application/HomeMain.fxml")).getCenter());
+		((Label)borderPane.lookup("#userTextLabel")).setText(userStateTxt.getText());
+		//BorderPane centerInsidePane =(BorderPane)borderPane.getCenter();
+		//VBox topVbox = (VBox)centerInsidePane.getTop();
+		//this.userTextLabel = (Label)topVbox.getChildren().get(1);
+		//userTextLabel.setText(userStateTxt.getText());
+		Box homeBox = (Box)root.lookup("#homeBox");
+		Box shopBox = (Box)root.lookup("#shopBox");
+		Box boardBox = (Box)root.lookup("#boardBox");
+		Box membershipBox = (Box)root.lookup("#membershipBox");
+		Box loginBox = (Box)root.lookup("#loginBox");
+		Box searchBox = (Box)root.lookup("#searchBox");
+		StackPane homePane = (StackPane)root.lookup("#homePane");
+		StackPane shopPane = (StackPane)root.lookup("#shopPane");
+		StackPane boardPane = (StackPane)root.lookup("#boardPane");
+		StackPane membershipPane = (StackPane)root.lookup("#membershipPane");
+		StackPane loginPane = (StackPane)root.lookup("#loginPane");
+		StackPane searchPane = (StackPane)root.lookup("#searchPane");
+		homeBox = BoxScene(homePane, homeBox);
+		shopBox = BoxScene(shopPane, shopBox);
+		boardBox = BoxScene(boardPane, boardBox);
+		membershipBox = BoxScene(membershipPane, membershipBox);
+		loginBox =  BoxScene(loginPane, loginBox);
+		searchBox = BoxScene(searchPane, searchBox);
 		
 	}
 	public void UserTextFieldControl(String user) {
@@ -94,7 +188,7 @@ public class HomeController implements Initializable {
 			userState="GUEST";
 		}
 		else {
-		userState = user;
+		this.userState = user;
 		}
 		System.out.println(userState);
 
@@ -103,10 +197,10 @@ public class HomeController implements Initializable {
 		//usrTxt.setText(user);
 		//usrTxt.setStyle("-fx-background-color: null;-fx-text-fill: white;");
 	}
-	public void ShopView(ActionEvent e) {
+	public void ShopView() {
 		MainPopupShowInit();
 		
-		BorderPane borderPane = (BorderPane)comserv.getScene(e);
+		BorderPane borderPane = (BorderPane)this.root;
 		Parent shopView = comserv.Load("../ShopView/shopView.fxml");
 		borderPane.setCenter(shopView);
 		ShopMainController smctrler = new ShopMainController();
@@ -116,50 +210,37 @@ public class HomeController implements Initializable {
 		smctrler.setBoardState(2);
 		System.out.println(scrPane.getId());
 	}
-	public void BoardView(ActionEvent e) {
+	public void BoardView() {
 		MainPopupShowInit();
 		
-		Button btn = (Button)e.getSource();
-		System.out.println(btn.getId());
-		Parent root = comserv.getScene(e);
-		BorderPane bp = (BorderPane)root;
-		bp.setLeft(null);
-		bp.setCenter(comserv.Load("../BoardEx/DB/BoardListEx.fxml"));
-		bp.getScene().getWindow().sizeToScene();
+		BorderPane borderPane = (BorderPane)this.root;
+		borderPane.setLeft(null);
+		borderPane.setCenter(comserv.Load("../BoardEx/DB/BoardListEx.fxml"));
+		borderPane.getScene().getWindow().sizeToScene();
 		ListController lstctrler =new ListController();
 		lstctrler.setRoot(root);
 		lstctrler.setBoardState(1);
 	}
-	public void MembershipView(ActionEvent e) {
+	public void MembershipView() {
 		MainPopupShowInit();
-		
-		Parent root = comserv.getScene(e);
+
 		System.out.println("사용자 : " + userStateTxt.getText());
 		System.out.println(userStateTxt.getText().contentEquals("GUEST"));
 		if(userStateTxt.getText().contentEquals("GUEST")) {	
-			LoginView(e);
+			LoginView();
 		}
 		else{
-			Button btn = (Button)e.getSource();
-			System.out.println(btn.getId());
-			BorderPane bp = (BorderPane)root;
-			bp.setLeft(null);
-			bp.setCenter(comserv.Load("../MembershipFxml/mypage(main).fxml"));
+			BorderPane borderPane = (BorderPane)root;
+			borderPane.setLeft(null);
+			borderPane.setCenter(comserv.Load("../MembershipFxml/mypage(main).fxml"));
 			return;
 		}
 
 	}
-	public void LoginView(ActionEvent e) {
+	public void LoginView() {
 		MainPopupShowInit();
-		
-		Button btn = (Button)e.getSource();
-		System.out.println(btn.getId());
-		/*
-		 * Stage stage = new Stage(); Parent root =
-		 * comserv.Load("../MembershipFxml/loginform.fxml"); stage.setScene(new
-		 * Scene(root)); stage.show();
-		 */
-		BorderPane borderPane = (BorderPane)comserv.getScene(e);
+
+		BorderPane borderPane = (BorderPane)this.root;
 		Parent centerScene = comserv.Load("../MembershipFxml/loginform.fxml");
 		
 		StackPane pane = new StackPane();
@@ -180,10 +261,10 @@ public class HomeController implements Initializable {
 		}
 	}
 	
-	public void CancleBtn1(ActionEvent e) {
+	public void CancleBtn1() {
 		
 		MainPopupShowInit();
-		BorderPane borderPane = (BorderPane)comserv.getScene(e);
+		BorderPane borderPane = (BorderPane)this.root;
 		Parent centerScene = comserv.Load("../MembershipFxml/loginform.fxml");
 		
 		StackPane pane = new StackPane();
@@ -199,11 +280,11 @@ public class HomeController implements Initializable {
 		
 	}
 
-	public void SearchView(ActionEvent e) {
+	public void SearchView() {
 		SearchItems.Controller ctrler = new SearchItems.Controller();
 		MainPopupShowInit();
-		
-		BorderPane borderPane = (BorderPane)comserv.getScene(e);
+
+		BorderPane borderPane = (BorderPane)this.root;
 		borderPane.setLeft(null);
 		borderPane.setBottom(null);
 		Parent centerScene = comserv.Load("../SearchItems/searchwindow.fxml");
@@ -236,8 +317,7 @@ public class HomeController implements Initializable {
 	}
 	public void setUser(String user) {
 		System.out.println(user);
-		String state = user;
-		UserTextFieldControl(state);
+		UserTextFieldControl(user);
 	}
 	public void setScrPane(ScrollPane scrpane) {
 		this.scrPane = scrpane;

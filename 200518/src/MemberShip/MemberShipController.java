@@ -66,7 +66,7 @@ public class MemberShipController implements Initializable{
 		
 	}
 	public void CancelProc(ActionEvent e) {
-		ctrler.CancleBtn1(e);
+		ctrler.CancleBtn1();
 	}
 	public void MemberShipProc(ActionEvent e) {// 회원정보 데이터를 membershipDB에 입력
 		Parent root = comServ.getScene(e);
@@ -98,7 +98,7 @@ public class MemberShipController implements Initializable{
 		alert.setContentText("회원가입을 성공하셨습니다.");
 		alert.show();
 		
-		ctrler.LoginView(e);
+		ctrler.LoginView();
 		}
 		else {
 			Alert alert = new Alert(AlertType.WARNING);

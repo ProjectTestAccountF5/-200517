@@ -169,7 +169,7 @@ public class LoginController implements Initializable{
 	}
 	public void CancelProc(ActionEvent e) {
 		HomeController ctrler = new HomeController();
-		ctrler.LoginView(e);
+		ctrler.LoginView();
 
 	}
 	public void EnterKeyPressed() {
