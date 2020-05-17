@@ -105,23 +105,8 @@ public class ShopDetailsController extends Controller implements Initializable{
 		ScrollPane sp = (ScrollPane)(boardRoot.getCenter());
 		sp.setPrefSize(890, 455);
 		vbox.getChildren().add(sp);
-		/*
-		sp.getChildren().add(boardRoot);
-		VBox vbox =(VBox)((Parent)e.getSource()).getParent().getParent();
-		sp.setId("StackPaneListView");
-		if(vbox.getChildren().contains(sp)) {
-			vbox.getChildren().remove(sp);
-			}
-		lstCtrler.setRoot((Parent)sp.getChildren().get(0));
-		vbox.getChildren().add(sp); 
-		 */
 		lstCtrler.setBoardState(2);
 
-		/*BorderPane bp = (BorderPane)root;
-		bp.setLeft(null);
-		bp.setCenter(comServ.Load("../../BoardEx/DB/BoardListEx.fxml"));
-		bp.getScene().getWindow().sizeToScene();
-		 */
 
 	}
 	public void qnaProc(ActionEvent e) {
@@ -137,7 +122,6 @@ public class ShopDetailsController extends Controller implements Initializable{
 	}
 	public void buyProc() {
 		if(isCheck()==0) {
-			//comServ.MsgBox("메시지", "다시 시도", "상품 옵션을 선택하세요");
 
 			StackPane stackpane = new StackPane();
 			VBox vbox = new VBox();
@@ -159,7 +143,6 @@ public class ShopDetailsController extends Controller implements Initializable{
 			return;
 		}
 		else {
-			//	comServ.MsgBox("메시지", "성공", "결제요청되었습니다.");
 
 			StackPane stackpane = new StackPane();
 			VBox vbox = new VBox();
@@ -183,7 +166,6 @@ public class ShopDetailsController extends Controller implements Initializable{
 	}
 	public void cartProc() {
 		if(isCheck()==0) {
-			//comServ.MsgBox("메시지", "다시 시도", "상품 옵션을 선택하세요");
 
 			StackPane stackpane = new StackPane();
 			VBox vbox = new VBox();
@@ -205,7 +187,6 @@ public class ShopDetailsController extends Controller implements Initializable{
 			return;
 		}
 		else {
-			//comServ.MsgBox("메시지", "성공", "장바구니에 추가되었습니다.");
 
 			StackPane stackpane = new StackPane();
 			VBox vbox = new VBox();

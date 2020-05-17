@@ -85,15 +85,11 @@ public class ShopMainController extends Controller implements Initializable {
 
 		ArrayList<Integer> location = new ArrayList<Integer>(); // gridpane의 position값 가져오기
 		location.addAll(pos);
-//		for (int i = 0; i < pos.size(); i++)
-//			System.out.println("pos " + i + " : " + pos.get(i));
 
 		List<ProductInfo> lstProdInfo = new ArrayList<ProductInfo>();
 		lstProdInfo.addAll(prodManage.getProductInfo(prdNumLst.get(pos.get(0))));
 		Parent form = shopMainServ.OpenPrdDetails(); // shopMainServiceImpl
 
-//		String [] colorItems= {lstProdInfo.get(0).getColor()};
-//		String [] sizeItems= {lstProdInfo.get(0).getPrdsize()};
 
 		comServ.DivideCom(lstProdInfo.get(0).getColor());
 		comServ.DivideCom(lstProdInfo.get(0).getPrdsize());
@@ -108,12 +104,6 @@ public class ShopMainController extends Controller implements Initializable {
 				"#dcpriceLbl");
 		shopDetailServ.AddImgView(form, "DetailImg/" + lstProdInfo.get(0).getImgdetail(), "#detailImgView");// 상세사진
 		shopDetailServ.AddImgView(form, "ImgSource/" + lstProdInfo.get(0).getImgsrc(), "#prdImgView");// 대표사진
-		/*
-		 * ImageView prdiv = (ImageView)form.lookup("#prdImgView");
-		 * prdiv.setFitWidth(840); prdiv.setFitHeight(600); ImageView detailiv =
-		 * (ImageView)form.lookup("#detailImgView"); detailiv.setFitHeight(4000);
-		 * detailiv.setFitWidth(1300);
-		 */
 		return form;
 
 	}
@@ -213,22 +203,10 @@ public class ShopMainController extends Controller implements Initializable {
 			 System.out.println("rp" + ((ScrollPane)reviewPane.getCenter()).getContent() + "qnap"   + ((ScrollPane)qnaPane.getCenter()).getContent());
 			 System.out.println(boardstate);
 			 
-			// ScrollPane sp1 = (ScrollPane)reviewPane.getCenter();
-			// ScrollPane sp2 = (ScrollPane)qnaPane.getCenter();
 			 lstctrler.setRoot((Parent)reviewPane,(Parent)qnaPane);
 			 lstctrler.setBoardState(boardstate);
 			 
 		});
 	}
-
-	/*
-	 * private class MyEventHandler implements EventHandler<Event>{
-	 * 
-	 * @Override public void handle(Event evt) {
-	 * System.out.println(((Control)evt.getSource()).getId()); } } public Node
-	 * getGidPaneNode(int col, int row) { for(Node node : gridPane.getChildren()) {
-	 * if(gridPane.getColumnIndex(node)==col && gridPane.getRowIndex(node)==row)
-	 * return node; } return null; }
-	 */
 
 }

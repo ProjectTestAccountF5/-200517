@@ -14,17 +14,26 @@ import MemberShip.Service.MemberShipServiceImpl;
 import application.HomeController;
 import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
+import javafx.stage.Popup;
 
 public class MemberShipController implements Initializable{
 	ICommonService comServ;
 	HomeController ctrler;
 	IMemberShipDBManage memberManage;
 	IMemberShipService imembershipserv;
+	private Parent root;
+	private Popup alertPopup;
 	
 	final int ID = 0;
 	final int NAME = 1;
@@ -41,13 +50,31 @@ public class MemberShipController implements Initializable{
 	}
 	
 	private boolean isCheck(Map<String, TextField> txtFldMap, String []txtFldIdArr) {
-		/*
-		 * if(comServ.isEmpty(txtFldMap, txtFldIdArr)) { System.out.println("비어 있어요");
-		 * return false; } return true;
-		 */
-		
+		alertPopup = new Popup();
 		if(comServ.isEmpty(txtFldMap, txtFldIdArr)) {
-			comServ.ErrorMsg("실패", "회원가입 실패", "빈칸을 입력해주세요");
+			
+			StackPane stackpane = new StackPane();
+			VBox vbox = new VBox();
+			vbox.setPadding(new Insets(10));
+			vbox.setAlignment(Pos.CENTER);
+			Label txtlbl1 = new Label("회원가입 실패");
+			txtlbl1.setPrefSize(250, 100);
+			txtlbl1.setFont(new Font(36));
+			txtlbl1.setAlignment(Pos.CENTER);
+			Label txtlbl2 = new Label("빈칸을 입력해주세요");
+			txtlbl2.setPrefSize(400, 100);
+			txtlbl2.setFont(new Font(24));
+			txtlbl2.setAlignment(Pos.CENTER);
+			Button failBtn = new Button("확인");
+			failBtn.setFont(new Font(24));
+			failBtn.setOnAction(event->{
+				Parent poproot = comServ.getScene(event);
+				Popup popscene = (Popup)poproot.getScene().getWindow();
+				popscene.hide();
+			});
+			vbox.getChildren().addAll(txtlbl1,txtlbl2,failBtn);
+			stackpane.getChildren().add(vbox);
+			alertPopup = comServ.showAlertPopUp(root.getScene(),"실패", stackpane);
 			return false;
 		}
 		String pw = txtFldMap.get(txtFldIdArr[PW]).getText();
@@ -56,8 +83,28 @@ public class MemberShipController implements Initializable{
 		
 		  if(!(imembershipserv.comparePW(pw, pwre))) { 
 			  
-			  comServ.ErrorMsg("실패",
-		  "회원가입 실패","패스워드가 다릅니다."); 
+				StackPane stackpane = new StackPane();
+				VBox vbox = new VBox();
+				vbox.setPadding(new Insets(10));
+				vbox.setAlignment(Pos.CENTER);
+				Label txtlbl1 = new Label("회원가입 실패");
+				txtlbl1.setPrefSize(250, 100);
+				txtlbl1.setFont(new Font(36));
+				txtlbl1.setAlignment(Pos.CENTER);
+				Label txtlbl2 = new Label("패스워드가 다릅니다.");
+				txtlbl2.setPrefSize(400, 100);
+				txtlbl2.setFont(new Font(24));
+				txtlbl2.setAlignment(Pos.CENTER);
+				Button failBtn = new Button("확인");
+				failBtn.setFont(new Font(24));
+				failBtn.setOnAction(event->{
+					Parent poproot = comServ.getScene(event);
+					Popup popscene = (Popup)poproot.getScene().getWindow();
+					popscene.hide();
+				});
+				vbox.getChildren().addAll(txtlbl1,txtlbl2,failBtn);
+				stackpane.getChildren().add(vbox);
+				alertPopup = comServ.showAlertPopUp(root.getScene(),"실패", stackpane);
 			  
 			  return false; }
 		
@@ -69,7 +116,7 @@ public class MemberShipController implements Initializable{
 		ctrler.CancleBtn1();
 	}
 	public void MemberShipProc(ActionEvent e) {// 회원정보 데이터를 membershipDB에 입력
-		Parent root = comServ.getScene(e);
+		this.root = comServ.getScene(e);
 		String []txtFldIdArr = {"#IdTxt", "#NameTxt", "#PwTxt","#PwTxtre", "#PhoneNumberTxt","#UserEmailTxt"};
 		Map<String, TextField> txtFldMap = 
 				comServ.getTextFieldInfo(root, txtFldIdArr);
@@ -93,18 +140,46 @@ public class MemberShipController implements Initializable{
 		
 		if(memberManage.MemberProc(member)) {
 		
-		Alert alert = new Alert(AlertType.CONFIRMATION);
-		alert.setTitle("회원가입");
-		alert.setContentText("회원가입을 성공하셨습니다.");
-		alert.show();
-		
+		StackPane stackpane = new StackPane();
+		VBox vbox = new VBox();
+		vbox.setPadding(new Insets(10));
+		vbox.setAlignment(Pos.CENTER);
+		Label txtlbl = new Label("회원가입을 성공하셨습니다.");
+		txtlbl.setPrefSize(600, 100);
+		txtlbl.setFont(new Font(36));
+		txtlbl.setAlignment(Pos.CENTER);
+		Button okBtn = new Button("확인");
+		okBtn.setFont(new Font(24));
+		okBtn.setOnAction(event->{
+			Parent poproot = comServ.getScene(event);
+			Popup popscene = (Popup)poproot.getScene().getWindow();
+			popscene.hide();
+		});
+		vbox.getChildren().addAll(txtlbl,okBtn);
+		stackpane.getChildren().add(vbox);
+		alertPopup = comServ.showAlertPopUp(root.getScene(),"회원가입", stackpane);
+		ctrler.setRoot(root);
 		ctrler.LoginView();
 		}
 		else {
-			Alert alert = new Alert(AlertType.WARNING);
-			alert.setTitle("회원가입");
-			alert.setContentText("회원가입에 실패하셨습니다.");
-			alert.show();
+			StackPane stackpane = new StackPane();
+			VBox vbox = new VBox();
+			vbox.setPadding(new Insets(10));
+			vbox.setAlignment(Pos.CENTER);
+			Label txtlbl = new Label("회원가입에 실패하셨습니다.");
+			txtlbl.setPrefSize(600, 100);
+			txtlbl.setFont(new Font(36));
+			txtlbl.setAlignment(Pos.CENTER);
+			Button okBtn = new Button("확인");
+			okBtn.setFont(new Font(24));
+			okBtn.setOnAction(event->{
+				Parent poproot = comServ.getScene(event);
+				Popup popscene = (Popup)poproot.getScene().getWindow();
+				popscene.hide();
+			});
+			vbox.getChildren().addAll(txtlbl,okBtn);
+			stackpane.getChildren().add(vbox);
+			alertPopup = comServ.showAlertPopUp(root.getScene(),"회원가입", stackpane);
 		}
 	}
 	

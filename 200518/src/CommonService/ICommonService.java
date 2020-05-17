@@ -21,5 +21,4 @@ public interface ICommonService {
 	public Popup showAlertPopUp(Scene scene, String title, Node node);
 	public Parent showWindow(Stage s, String formPath);
 	public List<String> DivideCom(String str);
-	void ErrorMsg(String title, String headerStr, String ContentTxt);
 }

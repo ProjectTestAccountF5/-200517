@@ -42,7 +42,6 @@ public class CommonServiceImpl implements ICommonService{
 		try {
 			root = loader.load();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return root;
@@ -162,8 +161,6 @@ public class CommonServiceImpl implements ICommonService{
 
 	@Override
 	public Boolean CheckBox(ActionEvent e) {
-		//Parent root = (Parent)e.getSource();
-		//CheckBox notChk = (CheckBox)root.lookup("#notShowCheckBox");
 		CheckBox notChk = (CheckBox)getScene(e).lookup("#notShowCheckBox");
 		checked = notChk.isSelected();
 		Popup notPopup = (Popup)getScene(e).getScene().getWindow();
@@ -187,15 +184,6 @@ public class CommonServiceImpl implements ICommonService{
 	}
 	
 	
-	@Override
-	public void ErrorMsg(String title, String headerStr, String ContentTxt) {
-		// TODO Auto-generated method stub
-		Alert alert = new Alert(AlertType.INFORMATION);
-		alert.setTitle(title);
-		alert.setHeaderText(headerStr);
-		alert.setContentText(ContentTxt);
-		alert.showAndWait();
-	}
 	
 	@Override
 	public Map<String, TextField> getTextFieldInfo(Parent root, String[] txtFldIdArr) {
@@ -210,12 +198,10 @@ public class CommonServiceImpl implements ICommonService{
 	
 	@Override
 	public Parent showWindow(Stage s, String formPath) {
-//		ScrollPane sp =new ScrollPane();
 		FXMLLoader loader =new FXMLLoader(getClass().getResource(formPath));
 		Parent root =null;
 		try {
 			root=loader.load();
-//			sp.setContent(root);
 			s.setScene(new Scene(root));
 		} catch (IOException e) {
 			e.printStackTrace();

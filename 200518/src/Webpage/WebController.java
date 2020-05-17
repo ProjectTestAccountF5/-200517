@@ -38,12 +38,6 @@ public class WebController implements Initializable{
 		bp.getScene().getWindow().sizeToScene();
 	}
 	public void webpage(ActionEvent e) {
-		/*
-		 * BorderPane bp = (BorderPane)comServ.getScene(e); BorderPane bpm =
-		 * (BorderPane)bp.lookup("#webMain");
-		 * bpm.setCenter(comServ.Load("../MembershipFxml/orderlist.fxml"));
-		 * bp.getScene().getWindow().sizeToScene();
-		 */
 		
 		try { Desktop.getDesktop().browse(new URI("https://service.epost.go.kr/iservice/usr/trace/usrtrc001k01.jsp")); } 
 		catch (IOException e1) { e1.printStackTrace(); } 

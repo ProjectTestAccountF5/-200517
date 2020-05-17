@@ -23,7 +23,6 @@ public class ShopMainServiceImpl implements ShopMainService{
 			System.out.println(loader.getLocation());
 			form = loader.load();
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return form;

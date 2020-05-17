@@ -38,26 +38,9 @@ import javafx.scene.image.*;
 public class BasketController extends Controller implements Initializable{
 	ICommonService comServ;
 	static private Parent root;
-	//JLabel label = new JLabel();
-	//JLabel label2 = new JLabel();
-	//JLabel label3 = new JLabel();
-	//JButton button = new JButton();
-	//JButton button2 = new JButton();
-	//Label label4 = new Label();
 
 	ActionListener ac = new ActionHandler();
 	ActionListener ac2 = new ActionHandler2();
-	//JFrame frame = new JFrame("장바구니");
-
-/*
- * @FXML private Label PrdSize1;
- * 
- * @FXML private Label Qty1;
- * 
- * @FXML private Label Color1;
- * 
- * @FXML private Label Price1;
- */
 	
 	Label label;
 	Label label2;
@@ -69,7 +52,6 @@ public class BasketController extends Controller implements Initializable{
 
 @Override
 public void initialize(URL location, ResourceBundle resources) {
-	// TODO Auto-generated method stub
 	
 }
 class ActionHandler implements ActionListener{
@@ -94,70 +76,18 @@ JOptionPane.showMessageDialog(null, "주문 완료 되었습니다.", "감사합니다 ^^", JO
 		  }
 	  }
 	private void Alert(String string) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	
 @Override
 public void setRoot(Parent root) {
-	// TODO Auto-generated method stub
 	this.root= root;
 }
 public Popup SetCartInfo(ArrayList<String> info) {
 	comServ = new CommonServiceImpl();
 	System.out.println("info.get(0) : "+info.get(0));
 
-	/*
-	Dimension dim = new Dimension(1100,200);
-	Dimension buttondim = new Dimension(100,30);
-
-	
-
-	frame.setLocation(500, 150);
-	frame.setPreferredSize(dim);
-	frame.setVisible(true);
-	
-	label = new JLabel();
-	label2 = new JLabel();
-	label3 = new JLabel();
-
-	button = new JButton();
-    button2 = new JButton();
-	
-	button.setPreferredSize(buttondim);
-	
-	ImageIcon image = new ImageIcon(new ImageIcon("src/"+info.get(5)).getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT));
-	
-	System.out.println("/"+info.get(5));
-	
-	label3.setIcon(image);
-	
-	label.setText("      " + info.get(0)+
-			"                "
-			+info.get(1)+"                "
-			+info.get(2)+"                "
-			+info.get(3)+"                "
-			+info.get(4)+"                ");
-	
-	label.setLocation(100, 200);
-	
-	button.setText("구매하기");
-	button2.setPreferredSize(buttondim);
-	button2.setText("삭제하기");
-	button.setBackground(Color.GRAY);
-	button2.setBackground(Color.GRAY);
-	button.addActionListener(ac);
-	button2.addActionListener(ac2);
-	frame.add(label3);
-	frame.add(label2);
-	frame.add(label);
-	frame.add(button);
-	frame.add(button2);
-	frame.setLayout(new FlowLayout());
-	frame.pack();
-	*/
-	
 	label = new Label();
 	label2 = new Label();
 	label3 = new Label();
@@ -187,7 +117,6 @@ public Popup SetCartInfo(ArrayList<String> info) {
 	
 	frame.getChildren().addAll(label3,label2, label,button, button2);
 	frame.setAlignment(Pos.CENTER);
-	//frame.getChildren().addAll(label2,button);
 		
 	
 	Popup basketpopup;

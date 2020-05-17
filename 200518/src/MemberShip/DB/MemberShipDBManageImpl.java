@@ -45,7 +45,6 @@ public class MemberShipDBManageImpl implements IMemberShipDBManage{
 			pStmt.close();
 			conn.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
 		}
@@ -62,10 +61,8 @@ public class MemberShipDBManageImpl implements IMemberShipDBManage{
 			Class.forName(DRIVER);
 			conn = DriverManager.getConnection(DB);
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -137,7 +134,6 @@ public class MemberShipDBManageImpl implements IMemberShipDBManage{
 			pStmt.close();
 			conn.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return lstMember;

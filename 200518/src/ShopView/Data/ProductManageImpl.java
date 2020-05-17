@@ -33,10 +33,8 @@ public class ProductManageImpl implements IProductManage{
 			Class.forName(DRIVER);
 			conn=DriverManager.getConnection(DB);
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		
@@ -65,7 +63,6 @@ public class ProductManageImpl implements IProductManage{
 				
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	
@@ -185,7 +182,6 @@ public class ProductManageImpl implements IProductManage{
 			stmt.close();
 			return vboxLst;
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return null;
@@ -243,8 +239,6 @@ public class ProductManageImpl implements IProductManage{
 				lstProductInfo.add(productInfo);
 				
 				pStmt.close();
-//				System.out.println(productInfo.getColor()+" productManage db연결");
-//				System.out.println(lstProductInfo.get(0).getColor()+"productManage lst추가");
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();

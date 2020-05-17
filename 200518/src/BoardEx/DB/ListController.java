@@ -69,18 +69,6 @@ public class ListController implements Initializable{
 
 	}
 
-	/*
-	 * ObservableList<TableRowDataModel> myList = FXCollections.observableArrayList(
-	 * myList =FXCollections.observableArrayList( for(int i=0;i<DB.size();i++) new
-	 * TableRowDataModel( Integer.parseInt(DB.get(i%7)), DB.get(i%7), DB.get(i%7),
-	 * DB.get(i%7), Integer.parseInt(DB.get(i%7)), DB.get(i%7),
-	 * Integer.parseInt(DB.get(i%7)) //new TableRowDataModel(new
-	 * SimpleIntegerProperty(Integer.parseInt(DB.get(0))), new
-	 * SimpleStringProperty(DB.get(1)), new SimpleStringProperty(DB.get(2)), new
-	 * SimpleStringProperty(DB.get(3)), new SimpleStringProperty(DB.get(4)), new
-	 * SimpleIntegerProperty(Integer.parseInt(DB.get(5))), new
-	 * SimpleIntegerProperty(Integer.parseInt(DB.get(6)))) );
-	 */
 	public void setRoot(Parent root) {
 		this.root = root;
 
@@ -302,11 +290,9 @@ public class ListController implements Initializable{
 
 		if(BoardState==2) {
 			boardList.setRowFactory(tv -> {
-				// Define our new TableRow
 				TableRow<TableRowDataModel> row = new TableRow<>();
 				row.setOnMouseClicked(event -> {
 					System.out.println(event.getSource());
-					//System.out.println(sptv);
 					try {
 						System.out.println(row.getItem().numListProperty());
 					} catch (NullPointerException e) {
@@ -316,10 +302,7 @@ public class ListController implements Initializable{
 					num= String.valueOf(row.getItem().numListProperty().getValue());
 					ReadController readctrler = new ReadController();
 					readctrler.setBoardstate(BoardState);
-					//BorderPane borderPane = (BorderPane)sptv.getContent();
 					Parent root = comserv.Load("../BoardEx/BoardReadEx.fxml");
-					//borderPane.setBottom(null);
-					//borderPane.setCenter(root);
 				});
 				return row;
 			});

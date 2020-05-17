@@ -27,10 +27,8 @@ public class BoardDBManageImpl implements IBoardDBManage {
 			Class.forName(DRIVER);
 			conn = DriverManager.getConnection(DB);
 		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
@@ -55,7 +53,6 @@ public class BoardDBManageImpl implements IBoardDBManage {
 			pStmt.close();
 			conn.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 			return false;
 		}
@@ -144,7 +141,6 @@ public class BoardDBManageImpl implements IBoardDBManage {
 			pStmt.close();
 			conn.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return DBRarray;
