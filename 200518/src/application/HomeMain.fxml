@@ -204,7 +204,7 @@
 									width="200.0" />
 								<Label text="MEMBERSHIP">
 									<font>
-										<Font name="Segoe UI Black" size="36.0" />
+										<Font name="Segoe UI Black" size="26.0" />
 									</font>
 								</Label>
 							</children>
@@ -216,7 +216,7 @@
 									width="200.0" />
 								<Label text="LOGIN/LOGOUT">
 									<font>
-										<Font name="Segoe UI Black" size="30.0" />
+										<Font name="Segoe UI Black" size="24.0" />
 									</font>
 								</Label>
 							</children>

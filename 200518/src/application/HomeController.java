@@ -22,6 +22,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Box;
+import javafx.scene.text.Font;
 import javafx.scene.transform.Rotate;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
@@ -106,7 +107,18 @@ public class HomeController implements Initializable {
 		if(mainPopup.isShowing()) {
 			mainPopup.hide();
 		}
-		mainPopup = comserv.showPopUp(scene,"ÆË¾÷Ã¢1",mainPopupNode, "");
+		StackPane popupCenterPane = new StackPane();
+		Box box = new Box();
+		box.setDepth(200);
+		box.setHeight(200);
+		box.setWidth(200);
+		box.setOnMouseClicked(e->{
+			System.out.println("ÆË¾÷ ÄÁÅÙÃ÷");
+		});
+		popupCenterPane.getChildren().add(box);
+		popupCenterPane.setPrefSize(400,400);
+		box=BoxScene(popupCenterPane, box);
+		mainPopup = comserv.showPopUp(scene,"ÆË¾÷Ã¢1",popupCenterPane, "MainPopUpContent");
 	}
 	
 	public static Box BoxScene(StackPane panescene, Box box) {

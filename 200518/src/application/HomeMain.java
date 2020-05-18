@@ -35,7 +35,18 @@ public class HomeMain extends Application {
 		primaryStage.show();
 		
 
-		Popup firstPopup = comServ.showPopUp(primaryStage.getScene(), "ÆË¾÷Ã¢1", mainPopUpNode, "");
+		StackPane popupCenterPane = new StackPane();
+		Box box = new Box();
+		box.setDepth(200);
+		box.setHeight(200);
+		box.setWidth(200);
+		box.setOnMouseClicked(e->{
+			System.out.println("ÆË¾÷ ÄÁÅÙÃ÷");
+		});
+		popupCenterPane.getChildren().add(box);
+		popupCenterPane.setPrefSize(400,400);
+		box = mainctrler.BoxScene(popupCenterPane, box);
+		Popup firstPopup = comServ.showPopUp(primaryStage.getScene(), "ÆË¾÷Ã¢1", popupCenterPane, "MainPopUpContent");
 		
 
 		Box homeBox = (Box)root.lookup("#homeBox");

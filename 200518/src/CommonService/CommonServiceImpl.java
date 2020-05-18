@@ -56,7 +56,6 @@ public class CommonServiceImpl implements ICommonService{
 		}
 		popupBorderPane.setCenter(node);
 		sp.setContent(popupBorderPane);
-		Load("../application/PopUp.fxml");
 		BorderPane container = new BorderPane();
         container.setStyle("-fx-background-color : white;");
         StackPane titleStackPane = new StackPane();
@@ -66,7 +65,6 @@ public class CommonServiceImpl implements ICommonService{
         titlePopUp.setStyle("-fx-fill : white");
         titleStackPane.getChildren().add(titlePopUp);
         titleStackPane.setPrefHeight(40);
-        sp.setContent(node);
         container.setTop(titleStackPane);
         container.setCenter(sp);
 
