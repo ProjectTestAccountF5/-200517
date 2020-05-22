@@ -41,13 +41,13 @@ public class HomeMain extends Application {
 		box.setHeight(200);
 		box.setWidth(200);
 		box.setOnMouseClicked(e->{
-			System.out.println("ÆË¾÷ ÄÁÅÙÃ÷");
+			System.out.println("1Á¶ Á¦ÀÛ : °­¹Î¼º(SEARCH) , ±èµ¿¿ì(BOARD), ¹ÚÁØÇÏ(SHOP) , ÀÌ°­Èñ(HOME) , ÀÌÈ£¼º(MEMBERSHIP)");
 		});
 		popupCenterPane.getChildren().add(box);
 		popupCenterPane.setPrefSize(400,400);
 		box = mainctrler.BoxScene(popupCenterPane, box);
 		Popup firstPopup = comServ.showPopUp(primaryStage.getScene(), "ÆË¾÷Ã¢1", popupCenterPane, "MainPopUpContent");
-		
+		mainctrler.setPopup(firstPopup);
 
 		Box homeBox = (Box)root.lookup("#homeBox");
 		Box shopBox = (Box)root.lookup("#shopBox");
@@ -68,7 +68,6 @@ public class HomeMain extends Application {
 		membershipBox = mainctrler.BoxScene(membershipPane, membershipBox);
 		loginBox = mainctrler.BoxScene(loginPane, loginBox);
 		searchBox = mainctrler.BoxScene(searchPane, searchBox);
-		System.out.println(homePane.getScene()+ "/" + shopPane.getScene() + "/" );
 	}	
 	public static void main(String[] args) {
 		launch(args);

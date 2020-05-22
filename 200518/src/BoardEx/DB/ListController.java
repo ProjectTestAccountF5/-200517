@@ -20,7 +20,9 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableRow;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.VBox;
 import javafx.stage.Window;
 
 public class ListController implements Initializable{
@@ -66,8 +68,8 @@ public class ListController implements Initializable{
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-
 	}
+
 
 	public void setRoot(Parent root) {
 		this.root = root;
@@ -94,7 +96,7 @@ public class ListController implements Initializable{
 
 		case 1:{
 			System.out.println("보드리스트를 호출하기위한 루트 " + root);
-			boardList =(TableView)root.lookup("#boardList");
+			boardList =(TableView)root.lookup("#boardList");			
 			System.out.println(boardList);
 			numListColumn = (TableColumn)boardList.getVisibleLeafColumn(NUM);
 			tagListColumn = (TableColumn)boardList.getVisibleLeafColumn(TAG);
@@ -114,8 +116,6 @@ public class ListController implements Initializable{
 			likeListColumn.setCellValueFactory(cellData -> cellData.getValue().likeListProperty().asObject());
 
 			System.out.println("리스트보드스테이트 : " + BoardState);
-
-
 
 
 			for(int i = 0 ; i<DB.size();i++) {
@@ -142,11 +142,15 @@ public class ListController implements Initializable{
 			}
 		}break;
 		case 2:{
+
 			System.out.println("보드리스트를 호출하기위한 루트 " + (TableView)((ScrollPane)((BorderPane)root1).getCenter()).getContent());
 			System.out.println("보드리스트를 호출하기위한 루트 " + ((BorderPane)root2).getCenter());
 			System.out.println(((TableView)((ScrollPane)((BorderPane)root1).getCenter()).getContent()).getId().contentEquals("aTableView"));
 			if(root1.getId().contentEquals("reviewPane")) {
 				boardList =(TableView)((ScrollPane)((BorderPane)root1).getCenter()).getContent();
+
+				boardList.setStyle(null);
+
 				System.out.println(boardList);
 				numListColumn = (TableColumn)boardList.getVisibleLeafColumn(NUM);
 				tagListColumn = (TableColumn)boardList.getVisibleLeafColumn(TAG);
@@ -194,7 +198,9 @@ public class ListController implements Initializable{
 			}
 			if(((TableView)((ScrollPane)((BorderPane)root2).getCenter()).getContent()).getId().contentEquals("bTableView")) {
 				boardList =(TableView)((ScrollPane)((BorderPane)root2).getCenter()).getContent();
-				System.out.println(boardList);
+
+				boardList.setStyle(null);
+
 				numListColumn = (TableColumn)boardList.getVisibleLeafColumn(NUM);
 				tagListColumn = (TableColumn)boardList.getVisibleLeafColumn(TAG);
 				titleListColumn = (TableColumn)boardList.getVisibleLeafColumn(TITLE);
@@ -244,6 +250,8 @@ public class ListController implements Initializable{
 			break;
 		}
 		try {
+			setRoot(root);
+			System.out.println("들어갈 첫루트 "+root1 + "들어갈 두번째 루트 " + root2);
 			GetTitleProc();
 
 		} catch (NullPointerException e) {
@@ -261,6 +269,9 @@ public class ListController implements Initializable{
 		window.sizeToScene();
 		WriteController writectrler = new WriteController();
 		writectrler.setBoardState(BoardState);
+		String userState = ((TextField)this.root.lookup("#userStateTxt")).getText();
+		writectrler.setRoot(root);
+		writectrler.setUserState(userState);
 	}
 	public String GetTitleProc() {
 		if(BoardState == 1){
@@ -279,17 +290,50 @@ public class ListController implements Initializable{
 					num= String.valueOf(row.getItem().numListProperty().getValue());
 					ReadController readctrler = new ReadController();
 					readctrler.setBoardstate(BoardState);
+					readctrler.setRoot(root);
 					BorderPane borderPane = (BorderPane)rootv;
 					Parent root = comserv.Load("../BoardEx/BoardReadEx.fxml");
 					borderPane.setBottom(null);
 					borderPane.setCenter(root);
+					readctrler.setReadNum(num);
 				});
 				return row;
 			});
 		}
 
 		if(BoardState==2) {
-			boardList.setRowFactory(tv -> {
+			Parent root = comserv.Load("../BoardEx/BoardReadEx.fxml");
+			((VBox)(((BorderPane)root).getTop())).getChildren().remove(0);
+
+
+			System.out.println("리드");
+			System.out.println("들어간"+root1);
+			TableView<TableRowDataModel> boardListA = (TableView<TableRowDataModel>)((ScrollPane)(((BorderPane)root1).getCenter())).getContent();
+			System.out.println("보드리스트A:"+boardListA);
+			boardListA.setRowFactory(tv -> {
+				TableRow<TableRowDataModel> row = new TableRow<>();
+				row.setOnMouseClicked(event -> {
+					System.out.println(event.getSource());
+					try {
+						System.out.println(row.getItem().numListProperty());
+					} catch (NullPointerException e) {
+						System.out.println("빈공간입니다.");
+						return;
+					}
+					num= String.valueOf(row.getItem().numListProperty().getValue());
+					ReadController readctrler = new ReadController();
+					((ScrollPane)(((BorderPane)root1).getCenter())).setContent(root);
+					readctrler.setBoardstate(BoardState);
+					readctrler.setRoot(root1);
+					readctrler.setReadNum(num);
+				});
+				return row;
+			});
+
+			System.out.println("들어간"+root2);
+			TableView<TableRowDataModel> boardListB = (TableView<TableRowDataModel>)((ScrollPane)(((BorderPane)root2).getCenter())).getContent();
+			System.out.println("보드B:"+boardListB);
+			boardListB.setRowFactory(tv -> {
 				TableRow<TableRowDataModel> row = new TableRow<>();
 				row.setOnMouseClicked(event -> {
 					System.out.println(event.getSource());
@@ -302,14 +346,16 @@ public class ListController implements Initializable{
 					num= String.valueOf(row.getItem().numListProperty().getValue());
 					ReadController readctrler = new ReadController();
 					readctrler.setBoardstate(BoardState);
-					Parent root = comserv.Load("../BoardEx/BoardReadEx.fxml");
+					readctrler.setRoot(root2);
+					((ScrollPane)(((BorderPane)root2).getCenter())).setContent(root);
+					readctrler.setReadNum(num);
 				});
 				return row;
 			});
 		}
 		return num;
 	}
-	public String setNum() {
+	public String getNum() {
 		String number = this.num;
 		return number;
 	}

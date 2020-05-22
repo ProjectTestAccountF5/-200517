@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import BoardEx.DB.ListController;
 import CommonService.CommonServiceImpl;
 import CommonService.ICommonService;
+import Login.Service.LoginController;
 import ShopView.ShopMainController;
 import Webpage.WebController;
 import javafx.event.ActionEvent;
@@ -104,8 +105,8 @@ public class HomeController implements Initializable {
 	}
 	public void MainPopupShowInit() {
 		scene = root.getScene();
-		if(mainPopup.isShowing()) {
-			mainPopup.hide();
+		if(this.mainPopup.isShowing()) {
+			this.mainPopup.hide();
 		}
 		StackPane popupCenterPane = new StackPane();
 		Box box = new Box();
@@ -113,12 +114,13 @@ public class HomeController implements Initializable {
 		box.setHeight(200);
 		box.setWidth(200);
 		box.setOnMouseClicked(e->{
-			System.out.println("ÆË¾÷ ÄÁÅÙÃ÷");
+			System.out.println("1Á¶ Á¦ÀÛ : °­¹Î¼º(SEARCH) , ±èµ¿¿ì(BOARD), ¹ÚÁØÇÏ(SHOP) , ÀÌ°­Èñ(HOME) , ÀÌÈ£¼º(MEMBERSHIP)");
 		});
 		popupCenterPane.getChildren().add(box);
 		popupCenterPane.setPrefSize(400,400);
 		box=BoxScene(popupCenterPane, box);
 		mainPopup = comserv.showPopUp(scene,"ÆË¾÷Ã¢1",popupCenterPane, "MainPopUpContent");
+		setPopup(mainPopup);
 	}
 	
 	public static Box BoxScene(StackPane panescene, Box box) {
@@ -219,11 +221,11 @@ public class HomeController implements Initializable {
 
 	}
 	public void LoginView() {
+		LoginController lgctrleor = new LoginController();
 		MainPopupShowInit();
 
 		BorderPane borderPane = (BorderPane)this.root;
 		Parent centerScene = comserv.Load("../MembershipFxml/loginform.fxml");
-		
 		StackPane pane = new StackPane();
 		pane.getChildren().add(centerScene);
 		pane.setPrefSize(1800, 932);
@@ -240,6 +242,7 @@ public class HomeController implements Initializable {
 				loginBtn.setText("LOGIN");
 			}
 
+			lgctrleor.setRoot(((Parent)((BorderPane)this.root).getCenter()));
 	}
 	
 	public void CancleBtn1() {

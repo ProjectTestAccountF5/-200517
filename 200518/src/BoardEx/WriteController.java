@@ -7,21 +7,18 @@ import java.util.Map;
 import java.util.ResourceBundle;
 
 import BoardEx.DB.Board;
-import BoardEx.DB.BoardDBManageImpl;
-import BoardEx.DB.IBoardDBManage;
 import BoardEx.DB.ListController;
 import BoardWrite.Service.BoardWriteServiceImpl;
 import BoardWrite.Service.IBoardWriteService;
 import CommonService.CommonServiceImpl;
 import CommonService.ICommonService;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.StackPane;
@@ -41,6 +38,7 @@ public class WriteController implements Initializable{
 	final int WRITER = 2;
 	final int CONTENT = 3;
 	static int boardstate;
+	private String userState;
 	private Popup popup;
 	
 	public void setRoot(Parent root) {
@@ -49,7 +47,11 @@ public class WriteController implements Initializable{
 	public void setBoardState(int boardstate) {
 		this.boardstate=boardstate;
 	}
-	
+	public void setUserState(String userState) {
+		this.userState = userState;
+		TextField writerTxt= (TextField)root.lookup("#writerTxt");
+		writerTxt.setText(userState);
+	}
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
 		comServ = new CommonServiceImpl();

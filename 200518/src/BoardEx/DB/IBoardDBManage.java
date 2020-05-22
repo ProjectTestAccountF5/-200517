@@ -7,7 +7,7 @@ public interface IBoardDBManage {
 		public boolean BoardProc(Board board);
 
 		public List<String> ListProc();
-		public List<String> ReadProc();
+		public List<String> ReadProc(String Number);
 		public void UpdateBoard(String number, String title, String content);
 		public void DeleteBoard(String number);
 }

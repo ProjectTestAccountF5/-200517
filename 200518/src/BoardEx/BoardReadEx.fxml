@@ -42,7 +42,7 @@
    <top>
       <VBox BorderPane.alignment="CENTER">
          <children>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="게시판 예제">
+            <Text fx:id="readTitle" strokeType="OUTSIDE" strokeWidth="0.0" text="게시판">
                <font>
                   <Font name="Consolas Bold" size="30.0" />
                </font>

@@ -6,8 +6,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane fx:controller="Login.Service.LoginController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="254.0" prefWidth="454.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
->
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="254.0" prefWidth="454.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Login.Service.LoginController">
    <left>
       <VBox alignment="TOP_CENTER" prefHeight="176.0" prefWidth="93.0" BorderPane.alignment="CENTER">
          <BorderPane.margin>
@@ -33,23 +32,23 @@
    <center>
       <VBox prefHeight="196.0" prefWidth="253.0" BorderPane.alignment="CENTER">
          <children>
-            <TextField fx:id="IdField" prefHeight="23.0" prefWidth="186.0" promptText="ID를 입력해주세요">
+            <TextField fx:id="loginIdTxt" prefHeight="23.0" prefWidth="186.0" promptText="ID를 입력해주세요">
                <VBox.margin>
                   <Insets bottom="10.0" />
                </VBox.margin>
             </TextField>
-            <TextField fx:id="PwField" promptText="Password를 입력해주세요">
+            <PasswordField fx:id="loginPwTxt" promptText="Password를 입력해주세요">
                <VBox.margin>
                   <Insets bottom="10.0" />
                </VBox.margin>
-            </TextField>
+            </PasswordField>
          
-            <Button fx:id="MembershipLoginBtn" onAction="#CancelProc" mnemonicParsing="false" prefHeight="23.0" prefWidth="258.0" style="-fx-background-color: BLACK;" text="일반회원 로그인" textFill="WHITE">
+            <Button fx:id="MembershipLoginBtn" mnemonicParsing="false" onAction="#CancelProc" prefHeight="23.0" prefWidth="258.0" style="-fx-background-color: BLACK;" text="일반회원 로그인" textFill="WHITE">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>
             </Button>
-            <Button fx:id="ExitBtn" onAction="#CancelProc" mnemonicParsing="false" prefHeight="23.0" prefWidth="258.0" style="-fx-background-color: BLACK;" text="종료" textFill="WHITE">
+            <Button fx:id="ExitBtn" mnemonicParsing="false" onAction="#CancelProc" prefHeight="23.0" prefWidth="258.0" style="-fx-background-color: BLACK;" text="종료" textFill="WHITE">
                <VBox.margin>
                   <Insets top="10.0" />
                </VBox.margin>

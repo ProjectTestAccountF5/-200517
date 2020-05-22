@@ -10,7 +10,6 @@ import MemberShip.DB.MemberShipDBManageImpl;
 import Webpage.WebController;
 import application.HomeController;
 import javafx.event.ActionEvent;
-import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -18,6 +17,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.AnchorPane;
@@ -32,19 +32,19 @@ public class LoginController implements Initializable{
 	ICommonService comServ = new CommonServiceImpl();
 	IMemberShipDBManage memberManage = new MemberShipDBManageImpl();
 	static public String recentUser;
-	@FXML
-	TextField loginIdTxt;
-	@FXML
-	PasswordField loginPwTxt;
-	@FXML
-	Button LoginBtn;
+	static private TextField loginIdTxt;
+	static private PasswordField loginPwTxt;
+	static private Button LoginBtn;
+	private static Parent root;
 
 	@Override
 	public void initialize(URL arg0, ResourceBundle arg1) {
-		EnterKeyPressed();
 		
 	}
-
+	public void setRoot(Parent root) {
+		this.root = root;
+		EnterKeyPressed();
+	}
 	public void MembershipProc(ActionEvent e) {
 		System.out.println("회원가입");
 		Parent root = comServ.getScene(e);
@@ -68,6 +68,7 @@ public class LoginController implements Initializable{
 		borderPane.setLeft(null);
 		borderPane.setCenter(anchorpane);
 		borderPane.setBottom(null);
+		setRoot((Parent)centerScene);
 	}
 	public void ExitProc(ActionEvent e) {
 		HomeController ctrler = new HomeController();
@@ -173,6 +174,15 @@ public class LoginController implements Initializable{
 
 	}
 	public void EnterKeyPressed() {
+			Parent root = (Parent)((ScrollPane)this.root).getContent();
+			
+		loginIdTxt = (TextField)root.lookup("#loginIdTxt");
+		loginPwTxt = (PasswordField)root.lookup("#loginPwTxt");
+		LoginBtn = (Button)root.lookup("#LoginBtn");
+		System.out.println(loginIdTxt);
+		System.out.println(loginPwTxt);
+		System.out.println(LoginBtn);
+		
 		loginIdTxt.setOnKeyPressed(event ->{
 			if(event.getCode().equals(KeyCode.ENTER)) {
 				if(loginIdTxt.getText().isEmpty()) {

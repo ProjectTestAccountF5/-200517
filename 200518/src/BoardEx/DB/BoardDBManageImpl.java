@@ -104,7 +104,7 @@ public class BoardDBManageImpl implements IBoardDBManage {
 
 	}
 	@Override
-	public List<String> ReadProc() { // 게시판에 작성되있는 글 호출
+	public List<String> ReadProc(String Number) { // 게시판에 작성되있는 글 호출
 		ListController lstctrler = new ListController();
 		String sql = "SELECT * " +
 				"FROM Board " + "WHERE Number = ?";
@@ -114,7 +114,7 @@ public class BoardDBManageImpl implements IBoardDBManage {
 
 			pStmt = conn.prepareStatement(sql);
 
-			pStmt.setString(1, lstctrler.setNum());
+			pStmt.setString(1, Number);
 			pStmt.execute();
 
 
@@ -139,7 +139,6 @@ public class BoardDBManageImpl implements IBoardDBManage {
 				System.out.println(DBRarray);
 			}
 			pStmt.close();
-			conn.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

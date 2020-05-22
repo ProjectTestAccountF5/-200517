@@ -206,7 +206,10 @@ public class ShopMainController extends Controller implements Initializable {
 			 lstctrler.setRoot((Parent)reviewPane,(Parent)qnaPane);
 			 lstctrler.setBoardState(boardstate);
 			 
+			 
+			 
 		});
 	}
+	
 
 }
